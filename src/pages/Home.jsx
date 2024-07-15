@@ -51,6 +51,37 @@ const Home = () => {
       });
   };
 
+  const isPasswordStrong = (password) => {
+    return (
+      password.length >= 8 &&
+      /[A-Z]/.test(password) &&
+      /[a-z]/.test(password) &&
+      /[0-9]/.test(password)
+    );
+  };
+
+  const getPasswordStrength = () => {
+    if (!password) {
+      return null;
+    }
+
+    if (isPasswordStrong(password)) {
+      return (
+        <div className="text-green-600 mt-4 font-semibold">
+          <span className="text-blue-600"> Strength: </span>
+          <strong> Strong password</strong>
+        </div>
+      );
+    } else {
+      return (
+        <div className="text-red-600 mt-4 font-semibold">
+          <span className="text-blue-600"> Strength: </span>{" "}
+          <strong>Weak password</strong>
+        </div>
+      );
+    }
+  };
+
   const sliderStyle = {
     background: `linear-gradient(to right, rgba(9,121,20,0.6867997198879552) 0%, rgba(0,255,205,1) ${
       (length / 128) * 100
@@ -90,6 +121,7 @@ const Home = () => {
               Generated Password:
             </strong>
             <span className="text-gray-900">{password}</span>
+            {getPasswordStrength()}
           </div>
         )}
       </div>
